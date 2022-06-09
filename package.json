@@ -1,0 +1,39 @@
+{
+  "name": "eventApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "staging": "cp ./.env.staging ./.env && react-native start",
+    "build-prod": "cp ./.env.prod ./.env && react-native start",
+    "build-dev": "cp ./.env.dev ./.env && react-native start",
+    "build-dev-ios": "cp ./.env.dev ./.env && react-native run-ios",
+    "build-dev-android": "cp ./.env.dev ./.env && react-native run-android",
+    "staging-ios": "cp ./.env.staging ./.env && react-native run-ios",
+    "staging-android": "cp ./.env.staging ./.env && react-native run-android",
+    "build-prod-ios": "cp ./.env.prod ./.env && react-native run-ios",
+    "build-prod-android": "cp ./.env.prod ./.env && react-native run-android"
+  },
+  "dependencies": {
+    "react": "17.0.2",
+    "react-native": "0.66.4",
+    "react-native-config": "^1.4.5"
+  },
+  "devDependencies": {
+    "@babel/core": "7.18.2",
+    "@babel/runtime": "7.18.3",
+    "@react-native-community/eslint-config": "2.0.0",
+    "babel-jest": "26.6.3",
+    "eslint": "7.14.0",
+    "jest": "26.6.3",
+    "metro-react-native-babel-preset": "0.66.2",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
