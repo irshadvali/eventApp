@@ -7,56 +7,21 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import Config from 'react-native-config';
-
+import Router from './src/Router';
+import {Provider} from 'react-redux';
+import {store} from './src/store';
 const App = () => {
   console.log('===========Config===', Config);
 
   return (
-    <SafeAreaView>
-      <View>
-        <Text>{'APPPP'}</Text>
-        <Text>{Config.API_URL}</Text>
-      </View>
-    </SafeAreaView>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   );
 };
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
