@@ -21,9 +21,10 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
-
+import InstagramLogin from 'react-native-instagram-login';
+import Config from 'react-native-config';
 const LoginPage = () => {
-  console.log('==========in==LoginPage');
+  console.log('==========in==LoginPage', Config);
   const [name, setName] = useState('xyz');
   const _responseInfoCallback = (error, result) => {
     if (error) {
@@ -79,7 +80,9 @@ const LoginPage = () => {
       },
     );
   };
-
+  const setIgToken = data => {
+    console.log('data', data);
+  };
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.mainContainer}>
@@ -89,16 +92,47 @@ const LoginPage = () => {
           onPress={() => {
             LoginBYFb();
           }}>
-          <Text>Click to login</Text>
+          <Text>FACEBOOK LOGIN</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
             LogoutBYFb();
           }}>
-          <Text>Click to logout</Text>
+          <Text>FACEBOOK LOGOUT</Text>
         </TouchableOpacity>
         <Text>{name}</Text>
+        <Text>Instagram Login start {Config.INSTAGRAM_APP_ID}</Text>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => this.instagramLogin.show()}>
+          <Text style={{color: 'red', textAlign: 'center'}}>
+            Login with Instagram
+          </Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity
+          style={[styles.btn, {marginTop: 10, backgroundColor: 'green'}]}
+          onPress={() => this.onClear()}>
+          <Text style={{color: 'white', textAlign: 'center'}}>Logout</Text>
+        </TouchableOpacity>
+        <Text style={{margin: 10}}>Token: {this.state.token}</Text>
+        {this.state.failure && (
+          <View>
+            <Text style={{margin: 10}}>
+              failure: {JSON.stringify(this.state.failure)}
+            </Text>
+          </View>
+        )} */}
+        <InstagramLogin
+          ref={ref => (this.instagramLogin = ref)}
+          appId={Config.INSTAGRAM_APP_ID}
+          appSecret={Config.INSTAGRAM_APP_SECRET}
+          redirectUrl={Config.MYURL}
+          scopes={['user_profile', 'user_media']}
+          onLoginSuccess={setIgToken}
+          onLoginFailure={data => console.log(data)}
+        />
+        <Text>Instagram Login end</Text>
       </View>
     </SafeAreaView>
   );
