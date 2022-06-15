@@ -6,13 +6,15 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
+  Alert,
+  Button,
 } from 'react-native';
 import {
   LoginButton,
@@ -23,9 +25,15 @@ import {
 } from 'react-native-fbsdk';
 import InstagramLogin from 'react-native-instagram-login';
 import Config from 'react-native-config';
+import LinkedInModal from 'react-native-linkedin';
 const LoginPage = () => {
   console.log('==========in==LoginPage', Config);
   const [name, setName] = useState('xyz');
+  const [email, setEmail] = useState();
+  const [payload, setPayload] = useState();
+  const [reloadpage, setReloadpage] = useState();
+  const linkedRef = React.createRef<LinkedInModal>();
+  const linkedinRef = useRef(null);
   const _responseInfoCallback = (error, result) => {
     if (error) {
       console.log('Error fetching data: ' + error);
@@ -83,6 +91,95 @@ const LoginPage = () => {
   const setIgToken = data => {
     console.log('data', data);
   };
+
+  const getUser = async data => {
+    const {access_token, authentication_code} = data;
+    if (!authentication_code) {
+      const response = await fetch(
+        'https://api.linkedin.com/v2/me?projection= (id,firstName,lastName,profilePicture(displayImage~:playableStreams) )',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + access_token,
+          },
+        },
+      );
+      const apipayload = await response.json();
+      console.log('=apipayload=====', apipayload);
+      setPayload(apipayload);
+    } else {
+      Alert.alert(`authentication_code = ${authentication_code}`);
+    }
+  };
+  const getUserEmailId = async data => {
+    const {access_token, authentication_code} = data;
+    if (!authentication_code) {
+      const response = await fetch(
+        'https://api.linkedin.com/v2/clientAwareMemberHandles?  q=members&projection=(elements*(primary,type,handle~))',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + access_token,
+          },
+        },
+      );
+      const emailpayload = await response.json();
+      console.log('======', emailpayload.elements[0]['handle~'].emailAddress);
+      setEmail(emailpayload.elements[0]['handle~'].emailAddress);
+      //handleGetUser();
+    } else {
+      Alert.alert(`authentication_code = ${authentication_code}`);
+    }
+  };
+  // const handleGetUser = useCallback(() => {
+  //   if (payload) {
+  //     if (props.setFirstName) {
+  //       props.setFirstName(payload.firstName.localized.en_US);
+  //     }
+  //     if (props.setLastName) {
+  //       props.setLastName(payload.lastName.localized.en_US);
+  //     }
+  //     if (props.setProfileImage) {
+  //       if (
+  //         payload.profilePictfsure !== undefined &&
+  //         payload.profilePicture['displayImage~'] !== null &&
+  //         payload.profilePicture['displayImage~'].elements[3].identifiers[0]
+  //           .identifier !== null &&
+  //         payload.profilePicture['displayImage~'].elements[3].identifiers[0]
+  //           .identifier !== undefined
+  //       ) {
+  //         props.setProfileImage(
+  //           payload.profilePicture['displayImage~'].elements[3].identifiers[0]
+  //             .identifier,
+  //         );
+  //       } else {
+  //         props.setProfileImage('https://picsum.photos/200');
+  //       }
+  //     }
+  //     if (props.setLinkedInId) {
+  //       props.setLinkedInId(payload.id);
+  //     }
+  //     if (email) {
+  //       if (props.setEmailId) {
+  //         props.setEmailId(email);
+  //         props.setIsLoggedIn(true);
+  //         props.navigation.replace('HomeScreen', {
+  //           FName: payload.firstName.localized.en_US,
+  //           LName: payload.lastName.localized.en_US,
+  //           EmailId: email,
+  //           ImageUri:
+  //             payload.profilePicture['displayImage~'].elements[3].identifiers[0]
+  //               .identifier,
+  //           From: 'LINKEDIN',
+  //         });
+  //       }
+  //     }
+  //   }
+  // }, [email, payload, props]);
+  const _handleLinkedInLogin = () => {
+    return <Text>Buttonaaaaa</Text>;
+  };
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.mainContainer}>
@@ -133,6 +230,41 @@ const LoginPage = () => {
           onLoginFailure={data => console.log(data)}
         />
         <Text>Instagram Login end</Text>
+
+        {/* <LinkedInModal
+          ref={linkedinRef}
+          clientID={'77hfyp77zfseo5'}
+          clientSecret={'tjjxCHs149edRSuY'}
+          redirectUri="https://irshadvali.github.io/resume/"
+          onSuccess={token => {
+            let name_surname = 'https://api.linkedin.com/v2/me';
+            let user_mail =
+              'https://api.linkedin.com/v2/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))';
+            let namereq = new XMLHttpRequest();
+            namereq.open('GET', user_mail);
+            namereq.setRequestHeader(
+              'Authorization',
+              'Bearer ' + token.access_token,
+            );
+            namereq.onreadystatechange = function () {
+              if (namereq.readyState === 4) {
+                console.log('Text:', namereq.responseText);
+              }
+            };
+            namereq.send();
+          }}
+        /> */}
+        <LinkedInModal
+          ref={linkedRef}
+          clientID="[ Your client id from https://www.linkedin.com/developer/apps ]"
+          clientSecret="[ Your client secret from https://www.linkedin.com/developer/apps ]"
+          redirectUri="[ Your redirect uri set into https://www.linkedin.com/developer/apps ]"
+          onSuccess={token => console.log(token)}
+        />
+        {/* <Button
+          title="Log Out"
+          onPress={this.linkedRef.current.logoutAsync()}
+        /> */}
       </View>
     </SafeAreaView>
   );

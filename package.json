@@ -26,6 +26,7 @@
     "react-native-config": "^1.4.5",
     "react-native-fbsdk": "^3.0.0",
     "react-native-instagram-login": "^2.0.5",
+    "react-native-linkedin": "^2.1.1",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.13.1",
     "react-native-vector-icons": "^9.1.0",
