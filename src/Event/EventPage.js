@@ -21,75 +21,31 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {userActions} from '../action/auth.action';
+import ASYNCKEYS from '../utils/AsyncKeys';
 const EventPage = () => {
-  const [name, setName] = useState('xyz');
-  const _responseInfoCallback = (error, result) => {
-    if (error) {
-      console.log('Error fetching data: ' + error);
-    } else {
-      console.log('Result Name: ' + result.name);
-      console.log('Result Name: ' + result.email);
-      //console.log('Result Name: ' + result.picture);
-    }
-  };
-  const initUser = token => {
-    fetch(
-      'https://graph.facebook.com/v2.5/me?fields=email,first_name,last_name,friends&access_token=' +
-        token,
-    )
-      .then(response => {
-        response.json().then(json => {
-          const ID = json.id;
-          console.log('ID ' + ID);
+  const dispatch = useDispatch();
 
-          const EM = json.email;
-          console.log('Email ' + EM);
-
-          const FN = json.first_name;
-          setName(FN);
-          console.log('First Name ' + FN, json.last_name);
-        });
-      })
-      .catch(() => {
-        console.log('ERROR GETTING DATA FROM FACEBOOK');
-      });
-  };
-  const LogoutBYFb = () => {
+  const LogoutBYFb = async () => {
     console.log(LoginManager.logOut());
-  };
-  const LoginBYFb = () => {
-    LoginManager.logInWithPermissions(['email']).then(
-      function (result) {
-        if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          console.log(
-            'Login success with permissions: ' + JSON.stringify(result),
-          );
-          AccessToken.getCurrentAccessToken().then(data => {
-            console.log(data.accessToken.toString());
-            initUser(data.accessToken.toString());
-          });
-        }
-      },
-      function (error) {
-        console.log('Login fail with error: ' + error);
-      },
-    );
+    try {
+      await AsyncStorage.removeItem(ASYNCKEYS.TOKENKEYS);
+      await AsyncStorage.getAllKeys()
+        .then(keys => AsyncStorage.multiRemove(keys))
+        .then(() => console.log('success all clear'));
+      dispatch(userActions.userLogout());
+      console.log('Storage successfully cleared!');
+    } catch (e) {
+      console.log('Failed to clear the async storage.');
+    }
   };
 
   return (
     <SafeAreaView>
       <View>
-        <Text>{'APPPP'}</Text>
-
-        <TouchableOpacity
-          onPress={() => {
-            LoginBYFb();
-          }}>
-          <Text>Click to login</Text>
-        </TouchableOpacity>
+        <Text>{'Event'}</Text>
 
         <TouchableOpacity
           onPress={() => {

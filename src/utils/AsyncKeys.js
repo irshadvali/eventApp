@@ -1,0 +1,5 @@
+const ASYNCKEYS = {
+  TOKENKEYS: 'TOKENKEYS',
+  LOGINTYPE: 'LOGINTYPE',
+};
+export default ASYNCKEYS;

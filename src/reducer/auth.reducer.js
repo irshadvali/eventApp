@@ -6,6 +6,8 @@ const auth = (
     userStatus: '',
     userLoading: false,
     userType: '',
+    token: '',
+    isLogout: false,
   },
   action,
 ) => {
@@ -18,6 +20,7 @@ const auth = (
       });
     case userActions.LOGIN_SUCCESS: {
       return Object.assign({}, state, {
+        token: action.token,
         userData: action.data,
         isLogined: action.data,
         userLoading: false,
@@ -32,7 +35,17 @@ const auth = (
         userStatus: action.status,
         userType: userActions.LOGIN_FAILURE,
       });
-
+    case userActions.LOGOUT: {
+      console.log('in reduce logout', action);
+      return Object.assign({}, state, {
+        token: '',
+        userData: {},
+        isLogined: false,
+        userLoading: false,
+        userType: userActions.LOGOUT,
+        isLogout: true,
+      });
+    }
     default:
       return state;
   }

@@ -1,6 +1,7 @@
 import Config from 'react-native-config';
 export const apirequest = {
   getAll,
+  getUser,
 };
 function getAll(url) {
   const requestOptions = {
@@ -9,6 +10,16 @@ function getAll(url) {
   };
 
   return fetch(`${Config.API_URL}/${url}`, requestOptions).then(handleResponse);
+}
+function getUser(url) {
+  const requestOptions = {
+    method: 'GET',
+    //headers: authHeader(),
+  };
+  console.log('==========api=========', `${Config.FACEBOOK_URL}${url}`);
+  return fetch(`${Config.FACEBOOK_URL}${url}`, requestOptions).then(
+    handleResponse,
+  );
 }
 
 function handleResponse(response) {
