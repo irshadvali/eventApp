@@ -17,13 +17,13 @@ function userLogin(token, loginType = 'fb') {
     if (loginType === 'insta') {
       let payload = `id,username&access_token=${token}`;
       apirequest.getInstaUser(payload).then(
-        data => dispatch(success(data, token)),
+        data => dispatch(success(data, token, loginType)),
         error => dispatch(failure(error.toString())),
       );
     } else {
       let payload = `email,first_name,last_name,friends&access_token=${token}`;
       apirequest.getUser(payload).then(
-        data => dispatch(success(data, token)),
+        data => dispatch(success(data, token, loginType)),
         error => dispatch(failure(error.toString())),
       );
     }
@@ -32,8 +32,8 @@ function userLogin(token, loginType = 'fb') {
   function request() {
     return {type: LOGIN_REQUEST};
   }
-  function success(data, token) {
-    return {type: LOGIN_SUCCESS, data, token};
+  function success(data, token, loginType) {
+    return {type: LOGIN_SUCCESS, data, token, loginType};
   }
   function failure(error) {
     return {type: LOGIN_FAILURE, error};

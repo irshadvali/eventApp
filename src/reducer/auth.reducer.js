@@ -8,6 +8,7 @@ const auth = (
     userType: '',
     token: '',
     isLogout: false,
+    loginType: '',
   },
   action,
 ) => {
@@ -26,6 +27,7 @@ const auth = (
         userLoading: false,
         userStatus: action.status,
         userType: userActions.LOGIN_SUCCESS,
+        loginType: action.loginType,
       });
     }
     case userActions.LOGIN_FAILURE:
@@ -44,6 +46,7 @@ const auth = (
         userLoading: false,
         userType: userActions.LOGOUT,
         isLogout: true,
+        loginType: '',
       });
     }
     default:
