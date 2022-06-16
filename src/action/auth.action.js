@@ -10,15 +10,23 @@ export const userActions = {
   userLogout,
 };
 
-function userLogin(token) {
-  console.log('=============token in action', token);
+function userLogin(token, loginType = 'fb') {
+  console.log(loginType, '=============token in action', token);
   return dispatch => {
     dispatch(request());
-    let payload = `email,first_name,last_name,friends&access_token=${token}`;
-    apirequest.getUser(payload).then(
-      data => dispatch(success(data, token)),
-      error => dispatch(failure(error.toString())),
-    );
+    if (loginType === 'insta') {
+      let payload = `id,username&access_token=${token}`;
+      apirequest.getInstaUser(payload).then(
+        data => dispatch(success(data, token)),
+        error => dispatch(failure(error.toString())),
+      );
+    } else {
+      let payload = `email,first_name,last_name,friends&access_token=${token}`;
+      apirequest.getUser(payload).then(
+        data => dispatch(success(data, token)),
+        error => dispatch(failure(error.toString())),
+      );
+    }
   };
 
   function request() {

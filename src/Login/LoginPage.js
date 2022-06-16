@@ -32,19 +32,8 @@ const LoginPage = () => {
   const [name, setName] = useState('xyz');
   const userData = useSelector(state => state.auth);
   const dispatch = useDispatch();
-  const _responseInfoCallback = (error, result) => {
-    if (error) {
-      console.log('Error fetching data: ' + error);
-    } else {
-      console.log('Result Name: ' + result.name);
-      console.log('Result Name: ' + result.email);
-    }
-  };
   const initUser = token => {
     dispatch(userActions.userLogin(token));
-  };
-  const LogoutBYFb = () => {
-    console.log(LoginManager.logOut());
   };
   const LoginBYFb = async () => {
     LoginManager.logInWithPermissions(['email']).then(
@@ -70,8 +59,13 @@ const LoginPage = () => {
       },
     );
   };
-  const setIgToken = data => {
-    console.log('data', data);
+  const setIgToken = async data => {
+    console.log('data', data.access_token);
+    await AsyncStorage.setItem(
+      ASYNCKEYS.TOKENKEYS,
+      data.access_token.toString(),
+    );
+    dispatch(userActions.userLogin(data.access_token, 'insta'));
   };
 
   console.log('===================loginpage==', userData);

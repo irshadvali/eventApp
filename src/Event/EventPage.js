@@ -53,7 +53,7 @@ const EventPage = () => {
           }}>
           <Text>Click to logout</Text>
         </TouchableOpacity>
-        <Text>{name}</Text>
+       
       </View>
     </SafeAreaView>
   );
