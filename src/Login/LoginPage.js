@@ -23,44 +23,19 @@ import {
 } from 'react-native-fbsdk';
 import InstagramLogin from 'react-native-instagram-login';
 import Config from 'react-native-config';
+import ASYNCKEYS from '../utils/AsyncKeys';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {userActions} from '../action/auth.action';
 const LoginPage = () => {
   console.log('==========in==LoginPage', Config);
   const [name, setName] = useState('xyz');
-  const _responseInfoCallback = (error, result) => {
-    if (error) {
-      console.log('Error fetching data: ' + error);
-    } else {
-      console.log('Result Name: ' + result.name);
-      console.log('Result Name: ' + result.email);
-      //console.log('Result Name: ' + result.picture);
-    }
-  };
+  const userData = useSelector(state => state.auth);
+  const dispatch = useDispatch();
   const initUser = token => {
-    fetch(
-      'https://graph.facebook.com/v2.5/me?fields=email,first_name,last_name,friends&access_token=' +
-        token,
-    )
-      .then(response => {
-        response.json().then(json => {
-          const ID = json.id;
-          console.log('ID ' + ID);
-
-          const EM = json.email;
-          console.log('Email ' + EM);
-
-          const FN = json.first_name;
-          setName(FN);
-          console.log('First Name ' + FN, json.last_name);
-        });
-      })
-      .catch(() => {
-        console.log('ERROR GETTING DATA FROM FACEBOOK');
-      });
+    dispatch(userActions.userLogin(token));
   };
-  const LogoutBYFb = () => {
-    console.log(LoginManager.logOut());
-  };
-  const LoginBYFb = () => {
+  const LoginBYFb = async () => {
     LoginManager.logInWithPermissions(['email']).then(
       function (result) {
         if (result.isCancelled) {
@@ -71,6 +46,10 @@ const LoginPage = () => {
           );
           AccessToken.getCurrentAccessToken().then(data => {
             console.log(data.accessToken.toString());
+            AsyncStorage.setItem(
+              ASYNCKEYS.TOKENKEYS,
+              data.accessToken.toString(),
+            );
             initUser(data.accessToken.toString());
           });
         }
@@ -80,34 +59,39 @@ const LoginPage = () => {
       },
     );
   };
-  const setIgToken = data => {
-    console.log('data', data);
+  const setIgToken = async data => {
+    console.log('data', data.access_token);
+    await AsyncStorage.setItem(
+      ASYNCKEYS.TOKENKEYS,
+      data.access_token.toString(),
+    );
+    dispatch(userActions.userLogin(data.access_token, 'insta'));
   };
+
+  console.log('===================loginpage==', userData);
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.mainContainer}>
-        <Text>{'APPPP'}</Text>
+        <Text style={styles.loginText}>{'Login Page'}</Text>
 
         <TouchableOpacity
           onPress={() => {
             LoginBYFb();
           }}>
-          <Text>FACEBOOK LOGIN</Text>
+          <Text style={styles.facebookBtn}>LOGIN WITH FACEBOOK</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => {
             LogoutBYFb();
           }}>
           <Text>FACEBOOK LOGOUT</Text>
-        </TouchableOpacity>
-        <Text>{name}</Text>
-        <Text>Instagram Login start {Config.INSTAGRAM_APP_ID}</Text>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={styles.btn}
           onPress={() => this.instagramLogin.show()}>
-          <Text style={{color: 'red', textAlign: 'center'}}>
-            Login with Instagram
+          <Text style={[styles.facebookBtn, {backgroundColor: 'red'}]}>
+            LOGIN WITH INSTAGRAM
           </Text>
         </TouchableOpacity>
         {/* <TouchableOpacity
@@ -132,7 +116,6 @@ const LoginPage = () => {
           onLoginSuccess={setIgToken}
           onLoginFailure={data => console.log(data)}
         />
-        <Text>Instagram Login end</Text>
       </View>
     </SafeAreaView>
   );
@@ -141,7 +124,6 @@ const LoginPage = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    justifyContent: 'center',
   },
   sectionContainer: {
     marginTop: 32,
@@ -158,6 +140,24 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  loginText: {
+    fontWeight: '700',
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  facebookBtn: {
+    fontWeight: '700',
+    fontSize: 15,
+    textAlign: 'center',
+    marginTop: 20,
+    backgroundColor: 'blue',
+    marginHorizontal: 30,
+    height: 50,
+    textAlignVertical: 'center',
+    color: '#ffffff',
+    lineHeight: 50,
   },
 });
 
