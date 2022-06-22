@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "664816110849",
+    "firebase_url": "https://ecommerce-f7967-default-rtdb.firebaseio.com",
+    "project_id": "ecommerce-f7967",
+    "storage_bucket": "ecommerce-f7967.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664816110849:android:1fc48a2af86f8ed9309f00",
+        "android_client_info": {
+          "package_name": "com.eventapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664816110849-94v906u1h2ncfocr1pjfslrve2dukic6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4HFPz0JsAHq5lwuoer8KNowrW54j_IdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664816110849-94v906u1h2ncfocr1pjfslrve2dukic6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

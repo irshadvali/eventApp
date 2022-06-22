@@ -6,15 +6,23 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 import Config from 'react-native-config';
 import Router from './src/Router';
 import {Provider} from 'react-redux';
 import {store} from './src/store';
+import {
+  requestUserPermission,
+  notificationListener,
+} from './src/utils/notificationServices';
 const App = () => {
   console.log('===========Config===', Config);
+  useEffect(() => {
+    requestUserPermission();
+    notificationListener();
+  }, []);
 
   return (
     <Provider store={store}>
@@ -22,6 +30,5 @@ const App = () => {
     </Provider>
   );
 };
-
 
 export default App;
