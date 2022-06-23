@@ -33,6 +33,11 @@ import fireDb from '../utils/firbase';
 import moment from 'moment';
 import DatePicker from 'react-native-date-picker';
 import Modal from 'react-native-modal';
+import {
+  showNotification,
+  handleScheduleNotification,
+  handleCancel,
+} from '../utils/notification.android';
 var MAXLIST = 4;
 const EventPage = () => {
   const dispatch = useDispatch();
@@ -95,10 +100,15 @@ const EventPage = () => {
         if (err) {
           Alert.alert('Data not store');
         } else {
+          showNotification(
+            eventName,
+            `Event is Created on ${moment(startDate).format('LLL')}`,
+          );
           setStartDate(new Date());
           setEndDate(new Date());
           setEventName('My Name');
-          Alert.alert('Data store successfully');
+ 
+          //Alert.alert('Data store successfully');
         }
       });
       setModalVisible(!isModalVisible);
@@ -112,7 +122,11 @@ const EventPage = () => {
       if (err) {
         Alert.alert(err);
       } else {
-        Alert.alert('Event Cancel successfully');
+        showNotification(
+          eventName,
+          `Event is cancelled on ${moment(startDate).format('LLL')}`,
+        );
+        //Alert.alert('Event Cancel successfully');
       }
     });
     console.log(id);
@@ -134,9 +148,13 @@ const EventPage = () => {
           setModalVisible(false);
           setIsEdit(false);
         } else {
-          Alert.alert('Event update successfully');
+          //Alert.alert('Event update successfully');
           setModalVisible(false);
           setIsEdit(false);
+          showNotification(
+            eventName,
+            `Event is updated on ${moment(startDate).format('LLL')}`,
+          );
         }
       });
     } else {
