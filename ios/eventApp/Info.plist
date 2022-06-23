@@ -20,8 +20,28 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb570828431319067</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>570828431319067</string>
+	<key>FacebookClientToken</key>
+	<string>f20cad8327c9efd4644ee18f0a349b94</string>
+	<key>FacebookDisplayName</key>
+	<string>eventApp</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -35,28 +55,6 @@
 			</dict>
 		</dict>
 	</dict>
-	
-
-<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-  <key>CFBundleURLSchemes</key>
-  <array>
-    <string>fb570828431319067</string>
-  </array>
-  </dict>
-</array>
-<key>FacebookAppID</key>
-<string>570828431319067</string>
-<key>FacebookClientToken</key>
-<string>f20cad8327c9efd4644ee18f0a349b94</string>
-<key>FacebookDisplayName</key>
-<string>eventApp</string>
-<key>LSApplicationQueriesSchemes</key>
-<array>
-  <string>fbapi</string>
-  <string>fb-messenger-share-api</string>
-</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>

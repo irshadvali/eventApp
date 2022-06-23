@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View, Platform} from 'react-native';
 
 import Config from 'react-native-config';
 import Router from './src/Router';
@@ -20,8 +20,8 @@ import {
 const App = () => {
   console.log('===========Config===', Config);
   useEffect(() => {
-    requestUserPermission();
-    notificationListener();
+    Platform.OS === 'android' && requestUserPermission();
+    Platform.OS === 'android' && notificationListener();
   }, []);
 
   return (
