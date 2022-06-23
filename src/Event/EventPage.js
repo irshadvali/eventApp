@@ -37,7 +37,7 @@ import {
   showNotification,
   handleScheduleNotification,
 } from '../utils/notification';
-var MAXLIST = 4;
+var MAXLIST = 10;
 const EventPage = () => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
@@ -86,7 +86,7 @@ const EventPage = () => {
   const initialState = () => {
     setStartDate(new Date());
     setEndDate(new Date());
-    setEventName('My Name');
+    setEventName('My Event');
   };
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
