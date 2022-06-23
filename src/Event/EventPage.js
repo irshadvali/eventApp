@@ -33,6 +33,7 @@ import fireDb from '../utils/firbase';
 import moment from 'moment';
 import DatePicker from 'react-native-date-picker';
 import Modal from 'react-native-modal';
+import {sendMgs} from '../utils/notificationServices';
 var MAXLIST = 4;
 const EventPage = () => {
   const dispatch = useDispatch();
@@ -98,6 +99,7 @@ const EventPage = () => {
           setStartDate(new Date());
           setEndDate(new Date());
           setEventName('My Name');
+          sendMgs(payload);
           Alert.alert('Data store successfully');
         }
       });

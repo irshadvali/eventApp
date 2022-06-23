@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4803780FCDE44DD81112566A /* libPods-eventApp-eventAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D27F94F77616D7C26AE19859 /* libPods-eventApp-eventAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A877DC48286314C100289F5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A877DC47286314C100289F5E /* GoogleService-Info.plist */; };
 		AE0A99F8E6A9CFD22DAA368C /* libPods-eventApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9060FE37046F119C8509F7 /* libPods-eventApp.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = eventApp/main.m; sourceTree = "<group>"; };
 		59DF60FF853AB8D796A330A9 /* Pods-eventApp-eventAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eventApp-eventAppTests.release.xcconfig"; path = "Target Support Files/Pods-eventApp-eventAppTests/Pods-eventApp-eventAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = eventApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A877DC47286314C100289F5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CFB19D5E92A0C25CE2734B2C /* Pods-eventApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eventApp.debug.xcconfig"; path = "Target Support Files/Pods-eventApp/Pods-eventApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D27F94F77616D7C26AE19859 /* libPods-eventApp-eventAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-eventApp-eventAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4015DC2DE47DF8E94044ECD /* Pods-eventApp-eventAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eventApp-eventAppTests.debug.xcconfig"; path = "Target Support Files/Pods-eventApp-eventAppTests/Pods-eventApp-eventAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* eventApp */ = {
 			isa = PBXGroup;
 			children = (
+				A877DC47286314C100289F5E /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -114,7 +117,6 @@
 				E4015DC2DE47DF8E94044ECD /* Pods-eventApp-eventAppTests.debug.xcconfig */,
 				59DF60FF853AB8D796A330A9 /* Pods-eventApp-eventAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -245,6 +247,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				A877DC48286314C100289F5E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +499,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eventApp;
 				PRODUCT_NAME = eventApp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -521,7 +524,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eventApp;
 				PRODUCT_NAME = eventApp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
