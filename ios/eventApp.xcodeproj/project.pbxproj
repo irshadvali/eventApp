@@ -39,6 +39,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = eventApp/main.m; sourceTree = "<group>"; };
 		59DF60FF853AB8D796A330A9 /* Pods-eventApp-eventAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eventApp-eventAppTests.release.xcconfig"; path = "Target Support Files/Pods-eventApp-eventAppTests/Pods-eventApp-eventAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = eventApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A8B67D2C286447A700D3090F /* eventApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = eventApp.entitlements; path = eventApp/eventApp.entitlements; sourceTree = "<group>"; };
 		CFB19D5E92A0C25CE2734B2C /* Pods-eventApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eventApp.debug.xcconfig"; path = "Target Support Files/Pods-eventApp/Pods-eventApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D27F94F77616D7C26AE19859 /* libPods-eventApp-eventAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-eventApp-eventAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4015DC2DE47DF8E94044ECD /* Pods-eventApp-eventAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eventApp-eventAppTests.debug.xcconfig"; path = "Target Support Files/Pods-eventApp-eventAppTests/Pods-eventApp-eventAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		13B07FAE1A68108700A75B9A /* eventApp */ = {
 			isa = PBXGroup;
 			children = (
+				A8B67D2C286447A700D3090F /* eventApp.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -114,7 +116,6 @@
 				E4015DC2DE47DF8E94044ECD /* Pods-eventApp-eventAppTests.debug.xcconfig */,
 				59DF60FF853AB8D796A330A9 /* Pods-eventApp-eventAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -484,6 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = eventApp/eventApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = eventApp/Info.plist;
@@ -510,6 +512,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = eventApp/eventApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = eventApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

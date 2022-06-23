@@ -33,11 +33,7 @@ import fireDb from '../utils/firbase';
 import moment from 'moment';
 import DatePicker from 'react-native-date-picker';
 import Modal from 'react-native-modal';
-import {
-  showNotification,
-  handleScheduleNotification,
-  handleCancel,
-} from '../utils/notification.android';
+import {showNotification} from '../utils/notification';
 var MAXLIST = 4;
 const EventPage = () => {
   const dispatch = useDispatch();
@@ -81,7 +77,11 @@ const EventPage = () => {
     }
   }, []);
 
-  console.log(startDate);
+  const initialState = () => {
+    setStartDate(new Date());
+    setEndDate(new Date());
+    setEventName('My Name');
+  };
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -104,10 +104,8 @@ const EventPage = () => {
             eventName,
             `Event is Created on ${moment(startDate).format('LLL')}`,
           );
-          setStartDate(new Date());
-          setEndDate(new Date());
-          setEventName('My Name');
- 
+          initialState();
+
           //Alert.alert('Data store successfully');
         }
       });
@@ -302,6 +300,7 @@ const EventPage = () => {
             {backgroundColor: ids.length < MAXLIST ? 'blue' : '#d0d0d0'},
           ]}
           onPress={() => {
+            initialState();
             setModalVisible(true);
           }}>
           <Text
