@@ -21,10 +21,13 @@ const showNotification = (title, message) => {
   });
 };
 
-const handleScheduleNotification = (title, message) => {
+const handleScheduleNotification = (title, message, dateTime) => {
+  const date = new Date(dateTime);
   PushNotification.localNotificationSchedule({
+    channelId: 'channel-id', // (required)
     title: title,
     message: message,
+    date: date,
   });
 };
 

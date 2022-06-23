@@ -33,7 +33,10 @@ import fireDb from '../utils/firbase';
 import moment from 'moment';
 import DatePicker from 'react-native-date-picker';
 import Modal from 'react-native-modal';
-import {showNotification} from '../utils/notification';
+import {
+  showNotification,
+  handleScheduleNotification,
+} from '../utils/notification';
 var MAXLIST = 4;
 const EventPage = () => {
   const dispatch = useDispatch();
@@ -47,6 +50,7 @@ const EventPage = () => {
   const [data, setData] = useState({});
   const [editId, setEditID] = useState();
   const [isEdit, setIsEdit] = useState(false);
+  const [isDb, setDb] = useState(false);
   const LogoutBYFb = async () => {
     console.log(LoginManager.logOut());
     try {
@@ -64,6 +68,8 @@ const EventPage = () => {
     let idList = [];
     try {
       fireDb.child('event').on('value', snapshot => {
+        var a = snapshot.exists();
+        setDb(a);
         if (snapshot.val() !== null) {
           idList = Object.keys(snapshot.val()).map(id => {
             return {id: id};
@@ -100,9 +106,10 @@ const EventPage = () => {
         if (err) {
           Alert.alert('Data not store');
         } else {
-          showNotification(
+          handleScheduleNotification(
             eventName,
-            `Event is Created on ${moment(startDate).format('LLL')}`,
+            `Event time is on ${moment(startDate).format('LLL')}`,
+            payload.startD,
           );
           initialState();
 
@@ -169,43 +176,45 @@ const EventPage = () => {
     setModalVisible(true);
   };
   const renderItem = (item, index) => {
-    console.log(item.item.id);
-    return (
-      <View
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{
-          height: 120,
-          margin: 5,
-          backgroundColor: '#e6e6e6',
-          padding: 10,
-        }}>
-        <Text style={{marginBottom: 10}}>{data[item.item.id]?.eventName}</Text>
-        <View style={styles.viewOne}>
-          <Text style={styles.text2}>Start Date</Text>
-          <Text style={styles.text2}>End Date</Text>
-        </View>
-        <View style={styles.viewOne}>
-          <Text style={styles.text1}>{data[item.item.id]?.eventStart}</Text>
-          <Text style={styles.text1}>{data[item.item.id]?.eventEnd}</Text>
-        </View>
+    if (isDb) {
+      return (
         <View
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
-            width: '100%',
-            height: 1,
-            backgroundColor: '#d0d0d0',
-            marginVertical: 10,
-          }}
-        />
-        <View style={styles.viewOne}>
-          <TouchableOpacity onPress={() => cancelEvent(item.item.id)}>
-            <Text style={styles.text2}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => goForUpdate(item.item.id)}>
-            <Text style={styles.text2}>Edit</Text>
-          </TouchableOpacity>
+            height: 120,
+            margin: 5,
+            backgroundColor: '#e6e6e6',
+            padding: 10,
+          }}>
+          <Text style={{marginBottom: 10}}>
+            {data[item?.item?.id]?.eventName}
+          </Text>
+          <View style={styles.viewOne}>
+            <Text style={styles.text2}>Start Date</Text>
+            <Text style={styles.text2}>End Date</Text>
+          </View>
+          <View style={styles.viewOne}>
+            <Text style={styles.text1}>{data[item?.item?.id]?.eventStart}</Text>
+            <Text style={styles.text1}>{data[item?.item?.id]?.eventEnd}</Text>
+          </View>
+          <View style={styles.viewTwo} />
+          <View style={styles.viewOne}>
+            <TouchableOpacity onPress={() => cancelEvent(item.item.id)}>
+              <Text style={styles.text2}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => goForUpdate(item.item.id)}>
+              <Text style={styles.text2}>Edit</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    );
+      );
+    } else {
+      return (
+        <View>
+          <Text>No Data</Text>
+        </View>
+      );
+    }
   };
   return (
     <SafeAreaView>
@@ -396,6 +405,12 @@ const styles = StyleSheet.create({
   },
   flatListStyle: {
     paddingBottom: 80,
+  },
+  viewTwo: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#d0d0d0',
+    marginVertical: 10,
   },
 });
 

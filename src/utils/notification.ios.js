@@ -13,14 +13,14 @@ const showNotification = (title, message) => {
   });
 };
 
-const handleScheduleNotification = (title, message) => {
-  const date = new Date();
-  date.setSeconds(date.getSeconds() + 5);
+const handleScheduleNotification = (title, message, dateTime) => {
+  const date = new Date(dateTime);
+  //   date.setSeconds(date.getSeconds() + 5);
   PushNotificationIOS.scheduleLocalNotification({
     channelId: 'channel-id',
     alertTitle: title,
     alertBody: message,
-    fireDate: date.toISOString(),
+    fireDate: date,
   });
 };
 
